@@ -1,63 +1,55 @@
-Chest X-Ray Pneumonia Detection using CNN
+# Chest X-Ray Pneumonia Detection
 
-An end-to-end Deep Learning project designed to automatically detect Pneumonia from pediatric chest X-ray images using a Convolutional Neural Network (CNN) architecture, deployed with an interactive Streamlit application.
+An end-to-end Deep Learning project to automatically detect Pneumonia from chest X-ray images using Custom CNN and **MobileNetV2 Transfer Learning**, deployed via an interactive Streamlit web application.
 
-Project Overview
+---
 
-This project aims to leverage Artificial Intelligence for automated medical image analysis. By processing chest radiography scans, the developed CNN model distinguishes between healthy controls (NORMAL) and positive pneumonia cases (PNEUMONIA), helping streamline preliminary medical assessments with high diagnostic reliability.
+## Project Overview
 
-Dataset: Kaggle - Chest X-Ray Images (Pneumonia)
-Model Architecture: Custom Convolutional Neural Network (CNN)
-Primary Metric: Test Accuracy (98.8%)
-Deployment: Streamlit Web Application
-Dataset Structure
+This project builds an automated medical diagnostic tool to distinguish between `NORMAL` and `PNEUMONIA` X-ray scans. By incorporating **MobileNetV2 Transfer Learning**, the model optimizes diagnostic accuracy while tracking **Recall** to minimize false negatives in medical assessment.
 
-The dataset contains pre-split X-ray images organized as follows:
+* **Dataset:** Kaggle - Chest X-Ray Images (Pneumonia)
+* **Architectures:** Custom CNN & MobileNetV2 Transfer Learning
+* **Primary Metrics:** Accuracy & Recall
+* **Deployment:** Streamlit Web Application
 
+---
+
+## Performance & Results
+
+| Architecture | Validation Accuracy | Validation Recall | Validation Loss |
+| :--- | :--- | :--- | :--- |
+| **Custom CNN** | **98.80%** | ~98.20% | ~0.0650 |
+| **MobileNetV2 (Transfer Learning)** | 96.64% | **96.79%** | **0.0795** |
+
+* **Loss Function:** `binary_crossentropy`
+* **Output Activation:** `sigmoid`
+
+---
+
+## Key Features
+
+* **Dual Architecture:** Evaluates a 5-layer custom CNN against pre-trained MobileNetV2 representations.
+* **Clinical Focus:** Prioritizes **Recall (Sensitivity)** alongside Accuracy to avoid missing positive pneumonia cases.
+* **Regularization:** Uses Dropout (0.4 - 0.5) to prevent overfitting.
+* **Interactive UI:** Streamlit application for real-time image uploads and diagnostic predictions with confidence scores.
+
+---
+
+## Tech Stack
+
+* **Python 3.x**
+* **TensorFlow / Keras**
+* **Streamlit**
+* **OpenCV & Pillow**
+* **NumPy, Matplotlib, Scikit-Learn**
+
+---
+
+## Dataset Structure
+
+```text
 chest_xray/
-│
-├── train/
-│   ├── NORMAL/
-│   └── PNEUMONIA/
-│
-├── val/
-│   ├── NORMAL/
-│   └── PNEUMONIA/
-│
-└── test/
-    ├── NORMAL/
-    └── PNEUMONIA/
-
-Image Preprocessing
-
-Image Reading: OpenCV (cv2) is used for reading X-ray images.
-Color Conversion: Images are converted to RGB format.
-Resizing: Target dimensions are set to 128x128.
-Normalization: Pixel values are normalized using $X / 255.0$.
-Data Splitting: train_test_split is used with label stratification.
-Model Architecture
-
-The CNN architecture consists of:
-
-Feature Extraction: Stacked Conv2D and MaxPooling2D layers.
-Flattening: A Flatten layer transitions the extracted features into a fully connected network.
-Fully Connected Layer: Dense layers are used for classification.
-Regularization: Dropout with a rate of 0.5 is applied to prevent overfitting.
-Output Layer: A Sigmoid activation function is used for binary classification.
-Training & Evaluation
-Optimization: Adam
-Loss Function: binary_crossentropy
-Class Imbalance: Balanced class_weight adjustments are used during training.
-Performance & Results
-Test Accuracy: 98.8%
-Evaluation Metrics: Accuracy and Loss curves are plotted across epochs.
-Confusion Matrix: A detailed Confusion Matrix is used to evaluate classification performance.
-
-Streamlit Web App Deployment
-
-An interactive frontend built with Streamlit allows users to upload custom X-ray scans and receive instant predictions with confidence scores.
-
-Running the App Locally
-1. Clone the Repository
-git clone https://github.com/your-username/chest-xray-pneumonia-detection.git
-cd chest-xray-pneumonia-detection
+├── train/ (NORMAL, PNEUMONIA)
+├── val/   (NORMAL, PNEUMONIA)
+└── test/  (NORMAL, PNEUMONIA)
